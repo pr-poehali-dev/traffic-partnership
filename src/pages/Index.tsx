@@ -12,20 +12,24 @@ const Index = () => {
   const earnings = estimateAmount * 0.1;
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
-      <header className="border-b bg-white/80 backdrop-blur-sm sticky top-0 z-50">
+    <div className="min-h-screen bg-background">
+      <header className="border-b bg-primary/95 backdrop-blur-sm sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Icon name="Home" size={28} className="text-accent" />
-            <span className="font-heading font-bold text-xl">Дом Сократа</span>
+          <div className="flex items-center gap-3">
+            <img 
+              src="https://cdn.poehali.dev/files/6f7e6700-6c19-4862-aa12-e73cd96bc7db.png" 
+              alt="Дом Сократа" 
+              className="h-10 w-auto"
+            />
+            <span className="font-heading font-bold text-xl text-primary-foreground">Дом Сократа</span>
           </div>
           <nav className="hidden md:flex items-center gap-6">
-            <a href="#conditions" className="text-sm hover:text-accent transition-colors">Условия</a>
-            <a href="#stats" className="text-sm hover:text-accent transition-colors">Статистика</a>
-            <a href="#materials" className="text-sm hover:text-accent transition-colors">Материалы</a>
-            <a href="#contact" className="text-sm hover:text-accent transition-colors">Контакты</a>
+            <a href="#conditions" className="text-sm text-primary-foreground/80 hover:text-accent transition-colors">Условия</a>
+            <a href="#stats" className="text-sm text-primary-foreground/80 hover:text-accent transition-colors">Статистика</a>
+            <a href="#materials" className="text-sm text-primary-foreground/80 hover:text-accent transition-colors">Материалы</a>
+            <a href="#contact" className="text-sm text-primary-foreground/80 hover:text-accent transition-colors">Контакты</a>
           </nav>
-          <Button className="bg-accent hover:bg-accent/90">
+          <Button className="bg-accent hover:bg-accent/90 text-primary font-semibold">
             Стать партнером
           </Button>
         </div>
@@ -408,8 +412,12 @@ const Index = () => {
       <footer className="bg-primary text-primary-foreground py-12">
         <div className="container mx-auto px-4">
           <div className="max-w-5xl mx-auto text-center">
-            <div className="flex items-center justify-center gap-2 mb-4">
-              <Icon name="Home" size={24} />
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <img 
+                src="https://cdn.poehali.dev/files/6f7e6700-6c19-4862-aa12-e73cd96bc7db.png" 
+                alt="Дом Сократа" 
+                className="h-8 w-auto"
+              />
               <span className="font-heading font-bold text-lg">Дом Сократа</span>
             </div>
             <p className="text-sm opacity-75">
