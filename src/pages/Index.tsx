@@ -37,22 +37,22 @@ const Index = () => {
 
       <section className="container mx-auto px-4 py-20 md:py-32">
         <div className="max-w-5xl mx-auto text-center animate-fade-in">
-          <Badge className="mb-6 bg-accent/10 text-accent border-accent/20 px-4 py-2 text-sm font-semibold">
+          <Badge className="mb-6 bg-accent/10 text-primary border-accent/20 px-4 py-2 text-base font-semibold">
             Партнерская программа
           </Badge>
-          <h1 className="font-heading font-extrabold text-5xl md:text-7xl mb-6 leading-tight">
+          <h1 className="font-heading font-extrabold text-4xl sm:text-5xl md:text-7xl mb-6 leading-tight text-primary">
             Зарабатывайте
             <span className="block text-accent mt-2">10% от сметы</span>
           </h1>
-          <p className="text-xl text-muted-foreground mb-12 max-w-2xl mx-auto">
+          <p className="text-lg md:text-xl text-primary/80 mb-12 max-w-2xl mx-auto leading-relaxed">
             Привлекайте клиентов на ремонт квартир под ключ и получайте стабильный доход с каждого проекта
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center animate-slide-up">
-            <Button size="lg" className="bg-accent hover:bg-accent/90 text-lg px-8 py-6">
+            <Button size="lg" className="bg-accent hover:bg-accent/90 text-primary font-bold text-lg px-10 py-7 min-h-[48px] min-w-[48px] shadow-lg hover:shadow-xl transition-all">
               <Icon name="Rocket" size={20} className="mr-2" />
               Начать зарабатывать
             </Button>
-            <Button size="lg" variant="outline" className="text-lg px-8 py-6">
+            <Button size="lg" variant="outline" className="text-lg px-10 py-7 min-h-[48px] min-w-[48px] border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground font-semibold">
               <Icon name="FileText" size={20} className="mr-2" />
               Подробнее
             </Button>
@@ -65,43 +65,43 @@ const Index = () => {
             { icon: 'Users', title: '500+ партнеров', desc: 'Уже работают с нами' },
             { icon: 'Clock', title: '24 часа', desc: 'Вывод средств на карту' },
           ].map((stat, idx) => (
-            <Card key={idx} className="text-center border-2 hover:border-accent/50 transition-all hover:shadow-lg animate-scale-in" style={{ animationDelay: `${idx * 100}ms` }}>
+            <Card key={idx} className="text-center border-2 border-primary/10 bg-white hover:border-accent/50 transition-all hover:shadow-lg animate-scale-in" style={{ animationDelay: `${idx * 100}ms` }}>
               <CardContent className="pt-8 pb-6">
-                <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                  <Icon name={stat.icon as any} size={32} className="text-accent" />
+                <div className="w-16 h-16 bg-accent/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                  <Icon name={stat.icon as any} size={32} className="text-primary" />
                 </div>
-                <h3 className="font-heading font-bold text-2xl mb-2">{stat.title}</h3>
-                <p className="text-muted-foreground">{stat.desc}</p>
+                <h3 className="font-heading font-bold text-2xl mb-2 text-primary">{stat.title}</h3>
+                <p className="text-primary/70">{stat.desc}</p>
               </CardContent>
             </Card>
           ))}
         </div>
       </section>
 
-      <section id="conditions" className="bg-white py-20">
+      <section id="conditions" className="bg-white py-16 md:py-20">
         <div className="container mx-auto px-4">
           <div className="max-w-5xl mx-auto">
-            <h2 className="font-heading font-bold text-4xl md:text-5xl text-center mb-4">
+            <h2 className="font-heading font-bold text-3xl md:text-4xl lg:text-5xl text-center mb-4 text-primary">
               Условия партнерства
             </h2>
-            <p className="text-center text-muted-foreground mb-12 text-lg">
+            <p className="text-center text-primary/70 mb-12 text-base md:text-lg">
               Прозрачные и честные условия для каждого партнера
             </p>
 
-            <div className="grid md:grid-cols-2 gap-8 mb-12">
-              <Card className="border-2">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-12">
+              <Card className="border-2 border-primary/10 bg-white">
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
+                  <CardTitle className="flex items-center gap-2 text-primary">
                     <Icon name="Percent" className="text-accent" />
                     Комиссия
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div className="flex justify-between items-center p-4 bg-accent/5 rounded-lg">
-                    <span>Базовая ставка</span>
-                    <span className="font-heading font-bold text-2xl text-accent">10%</span>
+                  <div className="flex justify-between items-center p-4 bg-accent/10 rounded-lg">
+                    <span className="text-primary font-semibold">Базовая ставка</span>
+                    <span className="font-heading font-bold text-3xl text-accent">10%</span>
                   </div>
-                  <div className="space-y-2 text-sm text-muted-foreground">
+                  <div className="space-y-2 text-sm text-primary/70">
                     <p>• От сметы на работы (без материалов)</p>
                     <p>• Выплата после подписания договора</p>
                     <p>• Дополнительные бонусы за объем</p>
@@ -109,19 +109,19 @@ const Index = () => {
                 </CardContent>
               </Card>
 
-              <Card className="border-2">
+              <Card className="border-2 border-primary/10 bg-white">
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
+                  <CardTitle className="flex items-center gap-2 text-primary">
                     <Icon name="CreditCard" className="text-accent" />
                     Выплаты
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div className="flex justify-between items-center p-4 bg-accent/5 rounded-lg">
-                    <span>Срок выплаты</span>
-                    <span className="font-heading font-bold text-2xl text-accent">24ч</span>
+                  <div className="flex justify-between items-center p-4 bg-accent/10 rounded-lg">
+                    <span className="text-primary font-semibold">Срок выплаты</span>
+                    <span className="font-heading font-bold text-3xl text-accent">24ч</span>
                   </div>
-                  <div className="space-y-2 text-sm text-muted-foreground">
+                  <div className="space-y-2 text-sm text-primary/70">
                     <p>• На банковскую карту любого банка</p>
                     <p>• Минимальная сумма вывода: 1 000 ₽</p>
                     <p>• Комиссия за перевод: 0%</p>
@@ -130,9 +130,9 @@ const Index = () => {
               </Card>
             </div>
 
-            <Card className="bg-gradient-to-br from-accent/5 to-accent/10 border-accent/20">
+            <Card className="bg-gradient-to-br from-accent/10 to-accent/5 border-2 border-accent/20">
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
+                <CardTitle className="flex items-center gap-2 text-primary">
                   <Icon name="Calculator" className="text-accent" />
                   Калькулятор дохода
                 </CardTitle>
@@ -140,7 +140,7 @@ const Index = () => {
               <CardContent>
                 <div className="space-y-6">
                   <div>
-                    <Label htmlFor="estimate" className="text-base mb-2 block">
+                    <Label htmlFor="estimate" className="text-base mb-3 block text-primary font-semibold">
                       Сумма сметы (₽)
                     </Label>
                     <Input
@@ -148,24 +148,26 @@ const Index = () => {
                       type="number"
                       value={estimateAmount}
                       onChange={(e) => setEstimateAmount(Number(e.target.value))}
-                      className="text-lg h-12"
+                      className="text-lg h-14 border-2 border-primary/20 focus:border-accent"
+                      aria-label="Введите сумму сметы"
                     />
                   </div>
-                  <div className="p-6 bg-white rounded-xl border-2 border-accent/20">
-                    <p className="text-muted-foreground mb-2">Ваш доход</p>
-                    <p className="font-heading font-bold text-5xl text-accent">
+                  <div className="p-6 bg-white rounded-xl border-2 border-accent/30 shadow-sm">
+                    <p className="text-primary/70 mb-2 font-medium">Ваш доход</p>
+                    <p className="font-heading font-bold text-4xl md:text-5xl text-accent">
                       {earnings.toLocaleString('ru-RU')} ₽
                     </p>
                   </div>
-                  <div className="grid grid-cols-3 gap-4 text-center">
+                  <div className="grid grid-cols-3 gap-3 text-center">
                     {[100000, 300000, 500000].map((amount) => (
                       <button
                         key={amount}
                         onClick={() => setEstimateAmount(amount)}
-                        className="p-3 rounded-lg border-2 hover:border-accent transition-colors"
+                        className="p-3 rounded-lg border-2 border-primary/20 hover:border-accent hover:bg-accent/10 transition-all min-h-[48px] focus:outline-none focus:ring-2 focus:ring-accent"
+                        aria-label={`Установить сумму ${amount} рублей`}
                       >
-                        <span className="text-sm text-muted-foreground block">Смета</span>
-                        <span className="font-semibold">{(amount / 1000)}к</span>
+                        <span className="text-sm text-primary/60 block">Смета</span>
+                        <span className="font-semibold text-primary">{(amount / 1000)}к</span>
                       </button>
                     ))}
                   </div>
@@ -176,10 +178,10 @@ const Index = () => {
         </div>
       </section>
 
-      <section id="stats" className="py-20">
+      <section id="stats" className="py-16 md:py-20 bg-background">
         <div className="container mx-auto px-4">
           <div className="max-w-5xl mx-auto">
-            <h2 className="font-heading font-bold text-4xl md:text-5xl text-center mb-12">
+            <h2 className="font-heading font-bold text-3xl md:text-4xl lg:text-5xl text-center mb-12 text-primary">
               Статистика и аналитика
             </h2>
 
@@ -303,17 +305,17 @@ const Index = () => {
         </div>
       </section>
 
-      <section id="materials" className="bg-white py-20">
+      <section id="materials" className="bg-white py-16 md:py-20">
         <div className="container mx-auto px-4">
           <div className="max-w-5xl mx-auto">
-            <h2 className="font-heading font-bold text-4xl md:text-5xl text-center mb-4">
+            <h2 className="font-heading font-bold text-3xl md:text-4xl lg:text-5xl text-center mb-4 text-primary">
               Рекламные материалы
             </h2>
-            <p className="text-center text-muted-foreground mb-12 text-lg">
+            <p className="text-center text-primary/70 mb-12 text-base md:text-lg">
               Готовые инструменты для продвижения
             </p>
 
-            <div className="grid md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {[
                 { icon: 'Image', title: 'Баннеры', desc: 'Готовые баннеры всех размеров для контекста и таргета', count: '24 шт' },
                 { icon: 'FileText', title: 'Лендинг', desc: 'Готовая посадочная страница с формой захвата лида', count: '1 шт' },
@@ -322,17 +324,17 @@ const Index = () => {
                 { icon: 'Mail', title: 'Email-шаблоны', desc: 'Готовые письма для email-рассылок', count: '12 шт' },
                 { icon: 'MessageSquare', title: 'Скрипты', desc: 'Скрипты продаж и ответы на частые вопросы', count: '5 шт' },
               ].map((material, idx) => (
-                <Card key={idx} className="hover:shadow-lg transition-shadow border-2 hover:border-accent/50">
+                <Card key={idx} className="hover:shadow-lg transition-shadow border-2 border-primary/10 hover:border-accent/50">
                   <CardHeader>
-                    <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center mb-4">
-                      <Icon name={material.icon as any} size={24} className="text-accent" />
+                    <div className="w-12 h-12 bg-accent/20 rounded-xl flex items-center justify-center mb-4">
+                      <Icon name={material.icon as any} size={24} className="text-primary" />
                     </div>
-                    <CardTitle className="text-xl mb-2">{material.title}</CardTitle>
-                    <Badge variant="secondary">{material.count}</Badge>
+                    <CardTitle className="text-xl mb-2 text-primary">{material.title}</CardTitle>
+                    <Badge variant="secondary" className="bg-accent/20 text-primary">{material.count}</Badge>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-muted-foreground mb-4">{material.desc}</p>
-                    <Button variant="outline" className="w-full">
+                    <p className="text-primary/70 mb-4">{material.desc}</p>
+                    <Button variant="outline" className="w-full min-h-[48px] border-2 border-primary hover:bg-primary hover:text-primary-foreground font-semibold">
                       <Icon name="Download" size={16} className="mr-2" />
                       Скачать
                     </Button>
@@ -344,16 +346,16 @@ const Index = () => {
         </div>
       </section>
 
-      <section className="py-20 bg-gradient-to-br from-primary to-primary/90 text-primary-foreground">
+      <section className="py-16 md:py-20 bg-gradient-to-br from-primary to-primary/90 text-primary-foreground">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
-            <h2 className="font-heading font-bold text-4xl md:text-5xl mb-6">
+            <h2 className="font-heading font-bold text-3xl md:text-4xl lg:text-5xl mb-6">
               Готовы начать зарабатывать?
             </h2>
-            <p className="text-xl opacity-90 mb-8">
+            <p className="text-lg md:text-xl opacity-90 mb-8 leading-relaxed">
               Регистрация занимает 2 минуты. Первый лид можете получить уже сегодня
             </p>
-            <Button size="lg" className="bg-accent hover:bg-accent/90 text-lg px-10 py-6">
+            <Button size="lg" className="bg-accent hover:bg-accent/90 text-primary font-bold text-lg px-12 py-7 min-h-[48px] shadow-xl hover:shadow-2xl transition-all">
               <Icon name="Rocket" size={20} className="mr-2" />
               Зарегистрироваться сейчас
             </Button>
@@ -361,45 +363,45 @@ const Index = () => {
         </div>
       </section>
 
-      <section id="contact" className="py-20">
+      <section id="contact" className="py-16 md:py-20 bg-background">
         <div className="container mx-auto px-4">
           <div className="max-w-5xl mx-auto">
-            <h2 className="font-heading font-bold text-4xl md:text-5xl text-center mb-12">
+            <h2 className="font-heading font-bold text-3xl md:text-4xl lg:text-5xl text-center mb-12 text-primary">
               Контакты
             </h2>
 
-            <div className="grid md:grid-cols-3 gap-6">
-              <Card className="text-center">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <Card className="text-center border-2 border-primary/10 bg-white hover:border-accent/50 transition-all">
                 <CardContent className="pt-8">
-                  <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                    <Icon name="Phone" size={28} className="text-accent" />
+                  <div className="w-16 h-16 bg-accent/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <Icon name="Phone" size={28} className="text-primary" />
                   </div>
-                  <h3 className="font-heading font-bold text-xl mb-2">Телефон</h3>
-                  <a href="tel:+79999999999" className="text-accent hover:underline">
+                  <h3 className="font-heading font-bold text-xl mb-2 text-primary">Телефон</h3>
+                  <a href="tel:+79999999999" className="text-accent hover:underline text-lg font-semibold focus:outline-none focus:ring-2 focus:ring-accent rounded">
                     +7 (999) 999-99-99
                   </a>
                 </CardContent>
               </Card>
 
-              <Card className="text-center">
+              <Card className="text-center border-2 border-primary/10 bg-white hover:border-accent/50 transition-all">
                 <CardContent className="pt-8">
-                  <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                    <Icon name="Mail" size={28} className="text-accent" />
+                  <div className="w-16 h-16 bg-accent/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <Icon name="Mail" size={28} className="text-primary" />
                   </div>
-                  <h3 className="font-heading font-bold text-xl mb-2">Email</h3>
-                  <a href="mailto:partners@example.com" className="text-accent hover:underline">
+                  <h3 className="font-heading font-bold text-xl mb-2 text-primary">Email</h3>
+                  <a href="mailto:partners@example.com" className="text-accent hover:underline text-lg font-semibold focus:outline-none focus:ring-2 focus:ring-accent rounded break-all">
                     partners@example.com
                   </a>
                 </CardContent>
               </Card>
 
-              <Card className="text-center">
+              <Card className="text-center border-2 border-primary/10 bg-white hover:border-accent/50 transition-all">
                 <CardContent className="pt-8">
-                  <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                    <Icon name="MessageCircle" size={28} className="text-accent" />
+                  <div className="w-16 h-16 bg-accent/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <Icon name="MessageCircle" size={28} className="text-primary" />
                   </div>
-                  <h3 className="font-heading font-bold text-xl mb-2">Telegram</h3>
-                  <a href="https://t.me/support" className="text-accent hover:underline">
+                  <h3 className="font-heading font-bold text-xl mb-2 text-primary">Telegram</h3>
+                  <a href="https://t.me/support" className="text-accent hover:underline text-lg font-semibold focus:outline-none focus:ring-2 focus:ring-accent rounded">
                     @support
                   </a>
                 </CardContent>
