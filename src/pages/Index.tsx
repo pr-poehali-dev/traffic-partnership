@@ -6,8 +6,17 @@ import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import Icon from '@/components/ui/icon';
 import { Badge } from '@/components/ui/badge';
+import PartnerRegistrationForm from '@/components/PartnerRegistrationForm';
 
 const Index = () => {
+  const [showRegistrationForm, setShowRegistrationForm] = useState(false);
+
+  const scrollToForm = () => {
+    setShowRegistrationForm(true);
+    setTimeout(() => {
+      document.getElementById('registration-form')?.scrollIntoView({ behavior: 'smooth' });
+    }, 100);
+  };
   const [estimateAmount, setEstimateAmount] = useState<number>(500000);
   const earnings = estimateAmount * 0.1;
 
@@ -29,7 +38,10 @@ const Index = () => {
             <a href="#materials" className="text-sm text-primary-foreground/80 hover:text-accent transition-colors">Материалы</a>
             <a href="#contact" className="text-sm text-primary-foreground/80 hover:text-accent transition-colors">Контакты</a>
           </nav>
-          <Button className="bg-accent hover:bg-accent/90 text-primary font-semibold">
+          <Button 
+            onClick={scrollToForm}
+            className="bg-accent hover:bg-accent/90 text-primary font-semibold min-h-[44px]"
+          >
             Стать партнером
           </Button>
         </div>
@@ -48,11 +60,20 @@ const Index = () => {
             Привлекайте клиентов на ремонт квартир под ключ и получайте стабильный доход с каждого проекта
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center animate-slide-up">
-            <Button size="lg" className="bg-accent hover:bg-accent/90 text-primary font-bold text-lg px-10 py-7 min-h-[48px] min-w-[48px] shadow-lg hover:shadow-xl transition-all">
+            <Button 
+              size="lg" 
+              onClick={scrollToForm}
+              className="bg-accent hover:bg-accent/90 text-primary font-bold text-lg px-10 py-7 min-h-[48px] min-w-[48px] shadow-lg hover:shadow-xl transition-all"
+            >
               <Icon name="Rocket" size={20} className="mr-2" />
               Начать зарабатывать
             </Button>
-            <Button size="lg" variant="outline" className="text-lg px-10 py-7 min-h-[48px] min-w-[48px] border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground font-semibold">
+            <Button 
+              size="lg" 
+              variant="outline" 
+              onClick={() => document.getElementById('conditions')?.scrollIntoView({ behavior: 'smooth' })}
+              className="text-lg px-10 py-7 min-h-[48px] min-w-[48px] border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground font-semibold"
+            >
               <Icon name="FileText" size={20} className="mr-2" />
               Подробнее
             </Button>
@@ -355,13 +376,25 @@ const Index = () => {
             <p className="text-lg md:text-xl opacity-90 mb-8 leading-relaxed">
               Регистрация занимает 2 минуты. Первый лид можете получить уже сегодня
             </p>
-            <Button size="lg" className="bg-accent hover:bg-accent/90 text-primary font-bold text-lg px-12 py-7 min-h-[48px] shadow-xl hover:shadow-2xl transition-all">
+            <Button 
+              size="lg" 
+              onClick={scrollToForm}
+              className="bg-accent hover:bg-accent/90 text-primary font-bold text-lg px-12 py-7 min-h-[48px] shadow-xl hover:shadow-2xl transition-all"
+            >
               <Icon name="Rocket" size={20} className="mr-2" />
               Зарегистрироваться сейчас
             </Button>
           </div>
         </div>
       </section>
+
+      {showRegistrationForm && (
+        <section id="registration-form" className="py-16 md:py-20 bg-background">
+          <div className="container mx-auto px-4">
+            <PartnerRegistrationForm />
+          </div>
+        </section>
+      )}
 
       <section id="contact" className="py-16 md:py-20 bg-background">
         <div className="container mx-auto px-4">

@@ -1,0 +1,28 @@
+{
+  "tests": [
+    {
+      "name": "Register new partner successfully",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "name": "Иван Иванов",
+        "email": "ivan@example.com",
+        "phone": "+79991234567",
+        "traffic_source": "Контекстная реклама",
+        "experience": "Работаю с трафиком 3 года"
+      },
+      "expectedStatus": 201,
+      "expectedBody": {
+        "success": true,
+        "message": "string"
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Handle OPTIONS request",
+      "method": "OPTIONS",
+      "path": "/",
+      "expectedStatus": 200
+    }
+  ]
+}
