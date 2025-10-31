@@ -38,12 +38,22 @@ const Index = () => {
             <a href="#materials" className="text-sm text-primary-foreground/80 hover:text-accent transition-colors">Материалы</a>
             <a href="#contact" className="text-sm text-primary-foreground/80 hover:text-accent transition-colors">Контакты</a>
           </nav>
-          <Button 
-            onClick={scrollToForm}
-            className="bg-accent hover:bg-accent/90 text-primary font-semibold min-h-[44px]"
-          >
-            Стать партнером
-          </Button>
+          <div className="flex items-center gap-3">
+            <Button 
+              onClick={() => (window.location.href = '/login')}
+              variant="ghost"
+              className="text-primary-foreground hover:text-accent hidden sm:flex"
+            >
+              <Icon name="LogIn" size={18} className="mr-2" />
+              Вход
+            </Button>
+            <Button 
+              onClick={scrollToForm}
+              className="bg-accent hover:bg-accent/90 text-primary font-semibold min-h-[44px]"
+            >
+              Стать партнером
+            </Button>
+          </div>
         </div>
       </header>
 
