@@ -16,8 +16,8 @@ const Index = () => {
       <header className="border-b bg-white/80 backdrop-blur-sm sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Icon name="Hammer" size={28} className="text-accent" />
-            <span className="font-heading font-bold text-xl">РемонтПартнер</span>
+            <Icon name="Home" size={28} className="text-accent" />
+            <span className="font-heading font-bold text-xl">Дом Сократа</span>
           </div>
           <nav className="hidden md:flex items-center gap-6">
             <a href="#conditions" className="text-sm hover:text-accent transition-colors">Условия</a>
@@ -409,11 +409,11 @@ const Index = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-5xl mx-auto text-center">
             <div className="flex items-center justify-center gap-2 mb-4">
-              <Icon name="Hammer" size={24} />
-              <span className="font-heading font-bold text-lg">РемонтПартнер</span>
+              <Icon name="Home" size={24} />
+              <span className="font-heading font-bold text-lg">Дом Сократа</span>
             </div>
             <p className="text-sm opacity-75">
-              © 2024 РемонтПартнер. Все права защищены.
+              © 2024 Дом Сократа. Все права защищены.
             </p>
           </div>
         </div>
