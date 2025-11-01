@@ -5,9 +5,9 @@ import psycopg2
 
 def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
     '''
-    Business: Get all partners and their applications (admin only)
-    Args: event with httpMethod GET, queryStringParameters with admin_id
-    Returns: List of all partners with statistics
+    Business: Get all partners, approve/reject applications (admin only)
+    Args: event with httpMethod GET/POST, body for POST (partner_id, password, action)
+    Returns: List of partners (GET) or approval result (POST)
     '''
     method: str = event.get('httpMethod', 'GET')
     
@@ -16,11 +16,62 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
             'statusCode': 200,
             'headers': {
                 'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Methods': 'GET, OPTIONS',
+                'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
                 'Access-Control-Allow-Headers': 'Content-Type, X-Admin-Id',
                 'Access-Control-Max-Age': '86400'
             },
             'body': ''
+        }
+    
+    if method == 'POST':
+        body_data = json.loads(event.get('body', '{}'))
+        admin_email = event.get('headers', {}).get('x-user-id', '')
+        partner_id = body_data.get('partner_id')
+        password = body_data.get('password', '')
+        action = body_data.get('action', 'approve')
+        
+        if not admin_email or not partner_id:
+            return {
+                'statusCode': 400,
+                'headers': {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'},
+                'isBase64Encoded': False,
+                'body': json.dumps({'error': 'Missing admin email or partner_id'})
+            }
+        
+        database_url = os.environ.get('DATABASE_URL')
+        conn = psycopg2.connect(database_url)
+        cur = conn.cursor()
+        
+        cur.execute("SELECT is_admin FROM partners WHERE email = %s AND is_approved = TRUE", (admin_email,))
+        admin_row = cur.fetchone()
+        
+        if not admin_row or not admin_row[0]:
+            cur.close()
+            conn.close()
+            return {
+                'statusCode': 403,
+                'headers': {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'},
+                'isBase64Encoded': False,
+                'body': json.dumps({'error': 'Access denied: admin only'})
+            }
+        
+        if action == 'approve':
+            cur.execute(
+                "UPDATE partners SET is_approved = TRUE, password_hash = %s WHERE id = %s",
+                (password, partner_id)
+            )
+        elif action == 'reject':
+            cur.execute("DELETE FROM partners WHERE id = %s", (partner_id,))
+        
+        conn.commit()
+        cur.close()
+        conn.close()
+        
+        return {
+            'statusCode': 200,
+            'headers': {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'},
+            'isBase64Encoded': False,
+            'body': json.dumps({'success': True, 'action': action})
         }
     
     if method != 'GET':

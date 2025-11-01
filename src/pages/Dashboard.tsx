@@ -34,6 +34,15 @@ const Dashboard = () => {
     total_commission: 0
   });
   const [isLoading, setIsLoading] = useState(true);
+  const [showAddForm, setShowAddForm] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    phone: '',
+    email: '',
+    education_level: '',
+    notes: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     const partnerData = localStorage.getItem('partner');
@@ -70,6 +79,42 @@ const Dashboard = () => {
     localStorage.removeItem('partner');
     localStorage.removeItem('session_token');
     navigate('/');
+  };
+
+  const handleSubmitLead = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch('https://functions.poehali.dev/5096a3b0-c308-4ccf-ba91-fb97537df5b9', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-User-Id': partner.email
+        },
+        body: JSON.stringify(formData)
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setFormData({
+          name: '',
+          phone: '',
+          email: '',
+          education_level: '',
+          notes: ''
+        });
+        setShowAddForm(false);
+        fetchLeads(partner.id);
+      } else {
+        console.error('Error creating lead:', data.error);
+      }
+    } catch (error) {
+      console.error('Error submitting lead:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const getStatusBadge = (status: string) => {
@@ -165,9 +210,101 @@ const Dashboard = () => {
 
         <Card className="border-2 border-primary/10 bg-white">
           <CardHeader>
-            <CardTitle className="text-2xl font-heading text-primary">Мои лиды</CardTitle>
+            <div className="flex items-center justify-between">
+              <CardTitle className="text-2xl font-heading text-primary">Мои заявки</CardTitle>
+              <Button 
+                onClick={() => setShowAddForm(!showAddForm)}
+                className="bg-accent hover:bg-accent/90 text-primary font-semibold"
+              >
+                <Icon name={showAddForm ? "X" : "Plus"} size={18} className="mr-2" />
+                {showAddForm ? 'Отменить' : 'Добавить заявку'}
+              </Button>
+            </div>
           </CardHeader>
           <CardContent>
+            {showAddForm && (
+              <form onSubmit={handleSubmitLead} className="mb-6 p-6 border-2 border-accent/30 rounded-lg bg-accent/5">
+                <h3 className="font-heading font-semibold text-lg text-primary mb-4">Новая заявка</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-primary mb-2">
+                      Имя студента <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={formData.name}
+                      onChange={(e) => setFormData({...formData, name: e.target.value})}
+                      className="w-full px-4 py-2 border-2 border-primary/20 rounded-lg focus:border-accent focus:outline-none"
+                      placeholder="Иван Петров"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-primary mb-2">
+                      Телефон <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="tel"
+                      required
+                      value={formData.phone}
+                      onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                      className="w-full px-4 py-2 border-2 border-primary/20 rounded-lg focus:border-accent focus:outline-none"
+                      placeholder="+7 (999) 123-45-67"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-primary mb-2">Email</label>
+                    <input
+                      type="email"
+                      value={formData.email}
+                      onChange={(e) => setFormData({...formData, email: e.target.value})}
+                      className="w-full px-4 py-2 border-2 border-primary/20 rounded-lg focus:border-accent focus:outline-none"
+                      placeholder="ivan@example.com"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-primary mb-2">Уровень образования</label>
+                    <select
+                      value={formData.education_level}
+                      onChange={(e) => setFormData({...formData, education_level: e.target.value})}
+                      className="w-full px-4 py-2 border-2 border-primary/20 rounded-lg focus:border-accent focus:outline-none"
+                    >
+                      <option value="">Выберите уровень</option>
+                      <option value="9 класс">9 класс</option>
+                      <option value="10-11 класс">10-11 класс</option>
+                      <option value="Выпускник">Выпускник</option>
+                    </select>
+                  </div>
+                  <div className="md:col-span-2">
+                    <label className="block text-sm font-medium text-primary mb-2">Примечания</label>
+                    <textarea
+                      value={formData.notes}
+                      onChange={(e) => setFormData({...formData, notes: e.target.value})}
+                      className="w-full px-4 py-2 border-2 border-primary/20 rounded-lg focus:border-accent focus:outline-none"
+                      placeholder="Интересы студента, предпочтения по обучению..."
+                      rows={3}
+                    />
+                  </div>
+                </div>
+                <div className="flex gap-3 mt-4">
+                  <Button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="bg-accent hover:bg-accent/90 text-primary font-semibold"
+                  >
+                    {isSubmitting ? 'Отправка...' : 'Создать заявку'}
+                  </Button>
+                  <Button
+                    type="button"
+                    onClick={() => setShowAddForm(false)}
+                    variant="outline"
+                    className="border-primary/20"
+                  >
+                    Отмена
+                  </Button>
+                </div>
+              </form>
+            )}
             {leads.length === 0 ? (
               <div className="text-center py-12">
                 <Icon name="Inbox" size={64} className="text-primary/20 mx-auto mb-4" />

@@ -1,4 +1,5 @@
 {
+  "partner-create-lead": "https://functions.poehali.dev/5096a3b0-c308-4ccf-ba91-fb97537df5b9",
   "admin-get-partners": "https://functions.poehali.dev/2d79683e-baac-45a9-badc-580ddb033645",
   "get-partner-leads": "https://functions.poehali.dev/f84da5a5-d817-45a3-b926-d3e064fe8e7a",
   "auth-login": "https://functions.poehali.dev/16ffde6a-93d1-4e6e-a23c-6309ce2b1c17",

@@ -24,6 +24,9 @@ const Admin = () => {
   const [admin, setAdmin] = useState<any>(null);
   const [partners, setPartners] = useState<Partner[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [approvalModal, setApprovalModal] = useState<{partnerId: number, name: string} | null>(null);
+  const [password, setPassword] = useState('');
+  const [isProcessing, setIsProcessing] = useState(false);
 
   useEffect(() => {
     const partnerData = localStorage.getItem('partner');
@@ -63,6 +66,67 @@ const Admin = () => {
     localStorage.removeItem('partner');
     localStorage.removeItem('session_token');
     navigate('/');
+  };
+
+  const handleApprove = async () => {
+    if (!approvalModal || !password) return;
+    setIsProcessing(true);
+
+    try {
+      const response = await fetch('https://functions.poehali.dev/2d79683e-baac-45a9-badc-580ddb033645', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-User-Id': admin.email
+        },
+        body: JSON.stringify({
+          partner_id: approvalModal.partnerId,
+          password: password,
+          action: 'approve'
+        })
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setApprovalModal(null);
+        setPassword('');
+        fetchPartners(admin.id);
+      }
+    } catch (error) {
+      console.error('Error approving partner:', error);
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
+  const handleReject = async (partnerId: number) => {
+    if (!confirm('Вы уверены, что хотите отклонить эту заявку?')) return;
+    setIsProcessing(true);
+
+    try {
+      const response = await fetch('https://functions.poehali.dev/2d79683e-baac-45a9-badc-580ddb033645', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-User-Id': admin.email
+        },
+        body: JSON.stringify({
+          partner_id: partnerId,
+          action: 'reject'
+        })
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        fetchPartners(admin.id);
+      }
+    } catch (error) {
+      console.error('Error rejecting partner:', error);
+    } finally {
+      setIsProcessing(false);
+    }
   };
 
   const approvedPartners = partners.filter(p => p.is_approved);
@@ -207,6 +271,25 @@ const Admin = () => {
                               </p>
                             </div>
                           </div>
+                          <div className="flex gap-2">
+                            <Button
+                              onClick={() => setApprovalModal({partnerId: partner.id, name: partner.name})}
+                              disabled={isProcessing}
+                              className="bg-green-600 hover:bg-green-700 text-white"
+                            >
+                              <Icon name="Check" size={18} className="mr-2" />
+                              Одобрить
+                            </Button>
+                            <Button
+                              onClick={() => handleReject(partner.id)}
+                              disabled={isProcessing}
+                              variant="outline"
+                              className="border-red-300 text-red-600 hover:bg-red-50"
+                            >
+                              <Icon name="X" size={18} className="mr-2" />
+                              Отклонить
+                            </Button>
+                          </div>
                         </div>
                       </div>
                     ))}
@@ -270,6 +353,55 @@ const Admin = () => {
           </TabsContent>
         </Tabs>
       </main>
+
+      {approvalModal && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg p-6 max-w-md w-full">
+            <h3 className="font-heading font-bold text-xl text-primary mb-4">
+              Одобрение партнера
+            </h3>
+            <p className="text-primary/70 mb-4">
+              Партнер: <strong>{approvalModal.name}</strong>
+            </p>
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-primary mb-2">
+                Установите пароль для входа <span className="text-red-500">*</span>
+              </label>
+              <input
+                type="text"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full px-4 py-2 border-2 border-primary/20 rounded-lg focus:border-accent focus:outline-none"
+                placeholder="Минимум 6 символов"
+                autoFocus
+              />
+              <p className="text-xs text-primary/50 mt-1">
+                Передайте этот пароль партнеру для первого входа
+              </p>
+            </div>
+            <div className="flex gap-3">
+              <Button
+                onClick={handleApprove}
+                disabled={!password || password.length < 6 || isProcessing}
+                className="bg-accent hover:bg-accent/90 text-primary font-semibold flex-1"
+              >
+                {isProcessing ? 'Обработка...' : 'Подтвердить'}
+              </Button>
+              <Button
+                onClick={() => {
+                  setApprovalModal(null);
+                  setPassword('');
+                }}
+                variant="outline"
+                disabled={isProcessing}
+                className="border-primary/20"
+              >
+                Отмена
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
