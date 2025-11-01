@@ -1,0 +1,35 @@
+{
+  "tests": [
+    {
+      "name": "Успешный вход администратора",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "email": "domsokrata@bk.ru",
+        "password": "231199vd"
+      },
+      "expectedStatus": 200,
+      "expectedBody": {
+        "success": true,
+        "admin": {
+          "email": "string"
+        }
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Неверный пароль",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "email": "domsokrata@bk.ru",
+        "password": "wrongpassword"
+      },
+      "expectedStatus": 401,
+      "expectedBody": {
+        "error": "string"
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}

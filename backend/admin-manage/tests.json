@@ -1,0 +1,24 @@
+{
+  "tests": [
+    {
+      "name": "Получение списка партнёров",
+      "method": "GET",
+      "path": "/?action=partners",
+      "expectedStatus": 200,
+      "expectedBody": {
+        "partners": "array"
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Получение списка лидов",
+      "method": "GET",
+      "path": "/?action=leads",
+      "expectedStatus": 200,
+      "expectedBody": {
+        "leads": "array"
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}
